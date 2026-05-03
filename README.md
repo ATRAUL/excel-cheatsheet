@@ -4,7 +4,7 @@ A personal, growing reference of Excel shortcuts, functions, and IB-specific tec
 
 ## Live version
 
-> Replace this once you deploy: `https://yourusername.github.io/excel-cheatsheet/`
+> Replace this once you deploy: `https://atraul.github.io/excel-cheatsheet/`
 
 ## What's inside
 
