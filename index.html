@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Excel Shortcuts & Functions Cheat Sheet</title>
+<title>Excel — Cheat Sheets</title>
 <style>
   :root {
     --bg: #f6f8fb;
@@ -15,12 +15,14 @@
     --key-bg: #f3f4f6;
     --key-border: #d1d5db;
     --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.06);
     --highlight: #fde68a;
     --tip-bg: #fef9e7;
     --tip-border: #f4d35e;
     --ib-bg: #eef2ff;
     --ib-border: #6366f1;
     --code-bg: #f9fafb;
+    --nav-h: 56px;
   }
   * { box-sizing: border-box; }
   body {
@@ -30,13 +32,151 @@
     color: var(--ink);
     line-height: 1.5;
   }
+
+  /* ===== TOP NAV ===== */
+  nav.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: var(--nav-h);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-brand .logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    background: linear-gradient(135deg, var(--accent), #2c8d5a);
+    color: white;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 2px;
+    border-left: 1px solid var(--border);
+    padding-left: 18px;
+    margin-left: 4px;
+  }
+  .nav-tab {
+    padding: 7px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .nav-tab:hover { background: #f3f4f6; color: var(--ink); }
+  .nav-tab.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .nav-search {
+    margin-left: auto;
+    position: relative;
+    width: 320px;
+  }
+  .nav-search input {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px 0 36px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    background: var(--card) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat 12px center;
+    color: var(--ink);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .nav-search input::placeholder { color: var(--muted); }
+  .nav-search input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(29, 111, 66, 0.12);
+  }
+  .search-results {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    max-height: 420px;
+    overflow-y: auto;
+    display: none;
+  }
+  .search-results.open { display: block; }
+  .search-result {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    color: var(--ink);
+    transition: background 0.1s;
+  }
+  .search-result:last-child { border-bottom: none; }
+  .search-result:hover, .search-result.focused { background: var(--accent-soft); }
+  .search-result .result-section {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-bottom: 4px;
+  }
+  .search-result .result-title { font-weight: 500; font-size: 14px; }
+  .search-result .result-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .search-empty {
+    padding: 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
   .container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 36px 24px 80px;
+    padding: 32px 24px 80px;
   }
 
-  /* ----- Header ----- */
   header.page {
     margin-bottom: 28px;
     padding-bottom: 22px;
@@ -59,53 +199,79 @@
   }
   .meta strong { color: var(--ink); }
 
-  /* ----- Two-column layout: sidebar + main ----- */
+  /* ----- Two-column layout ----- */
   .layout {
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 256px 1fr;
     gap: 36px;
     align-items: start;
   }
   aside.sidebar {
     position: sticky;
-    top: 16px;
+    top: calc(var(--nav-h) + 16px);
     align-self: start;
-    max-height: calc(100vh - 32px);
+    max-height: calc(100vh - var(--nav-h) - 32px);
     overflow-y: auto;
-    padding-right: 8px;
+    padding: 4px 4px 16px;
     font-size: 13px;
   }
-  aside.sidebar .toc-group { margin-bottom: 18px; }
-  aside.sidebar h4 {
+  aside.sidebar::-webkit-scrollbar { width: 6px; }
+  aside.sidebar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+  aside.sidebar::-webkit-scrollbar-track { background: transparent; }
+
+  .toc-group { margin-bottom: 22px; }
+  .toc-group h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: var(--muted);
-    margin: 0 0 6px;
+    margin: 0 0 8px;
     padding-left: 10px;
+    font-weight: 700;
+  }
+  .toc-group h4 .toc-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
   }
   aside.sidebar ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 0 18px;
+    border-left: 1px solid var(--border);
   }
   aside.sidebar li a {
     display: block;
-    padding: 5px 10px;
+    padding: 6px 12px;
+    margin-left: -1px;
     color: var(--ink);
     text-decoration: none;
-    border-radius: 5px;
     border-left: 2px solid transparent;
+    font-size: 13px;
     transition: all 0.15s;
   }
   aside.sidebar li a:hover {
     background: var(--accent-soft);
     color: var(--accent);
-    border-left-color: var(--accent);
   }
+  aside.sidebar li a.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--accent-soft);
+    font-weight: 600;
+  }
+
   main { min-width: 0; }
 
-  /* ----- Major part headings ----- */
   .part { margin-top: 48px; }
   .part:first-of-type { margin-top: 0; }
   .part-eyebrow {
@@ -132,8 +298,7 @@
     max-width: 720px;
   }
 
-  /* ----- Sub-sections ----- */
-  section.category { margin-top: 28px; }
+  section.category { margin-top: 28px; scroll-margin-top: calc(var(--nav-h) + 16px); }
   section.category h3 {
     font-size: 18px;
     margin: 0 0 14px;
@@ -148,7 +313,6 @@
     padding-left: 12px;
   }
 
-  /* ----- Card grid ----- */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -164,17 +328,8 @@
     flex-direction: column;
     gap: 8px;
   }
-  .card .action {
-    font-size: 14px;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .card .keys {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 5px;
-  }
+  .card .action { font-size: 14px; color: var(--ink); font-weight: 500; }
+  .card .keys { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
   .key {
     display: inline-block;
     background: var(--key-bg);
@@ -188,11 +343,7 @@
     white-space: nowrap;
   }
   .plus { color: var(--muted); font-size: 12px; }
-  .note {
-    font-size: 12px;
-    color: var(--muted);
-    font-style: italic;
-  }
+  .note { font-size: 12px; color: var(--muted); font-style: italic; }
   .ib-tag {
     display: inline-block;
     background: var(--ib-bg);
@@ -207,7 +358,6 @@
     margin-left: 4px;
   }
 
-  /* ----- Concept cards (wide, used for major functions) ----- */
   .concept-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -222,11 +372,7 @@
     color: var(--accent);
     font-family: "SF Mono", Menlo, Consolas, monospace;
   }
-  .concept-card .tagline {
-    color: var(--muted);
-    font-size: 13px;
-    margin: 0 0 12px;
-  }
+  .concept-card .tagline { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
   .concept-card p { margin: 6px 0; font-size: 14px; }
   .concept-card ul { margin: 4px 0 10px 18px; padding: 0; font-size: 14px; }
   .concept-card li { margin: 3px 0; }
@@ -264,7 +410,6 @@
     .layout-2col { grid-template-columns: 1fr; }
   }
 
-  /* ----- Animated mini Excel demo ----- */
   .demo {
     background: #ffffff;
     border: 1px solid var(--border);
@@ -289,11 +434,7 @@
     margin-bottom: 8px;
     font-size: 11px;
   }
-  .xl-grid {
-    display: grid;
-    grid-template-columns: 36px repeat(4, 1fr);
-    border: 1px solid #cbd5e1;
-  }
+  .xl-grid { display: grid; grid-template-columns: 36px repeat(4, 1fr); border: 1px solid #cbd5e1; }
   .xl-cell {
     border-right: 1px solid #e5e7eb;
     border-bottom: 1px solid #e5e7eb;
@@ -323,45 +464,20 @@
   .demo-indexmatch .xl-cell.return-cell-im { animation: returnFlash 9s infinite; animation-delay: 4s; }
   .demo-indexmatch .result-cell-im { animation: revealResult 9s infinite; animation-delay: 4s; }
 
-  @keyframes rowFlash {
-    0%, 25%, 75%, 100% { background: #ffffff; }
-    35%, 65% { background: var(--highlight); }
-  }
-  @keyframes colFlash {
-    0%, 5%, 35%, 100% { background: #ffffff; }
-    10%, 30% { background: #dbeafe; }
-  }
-  @keyframes returnFlash {
-    0%, 60%, 95%, 100% { background: #ffffff; }
-    65%, 90% { background: #d1fae5; }
-  }
-  @keyframes pulseHighlight {
-    0%, 100% { background: transparent; }
-    5%, 25% { background: var(--highlight); }
-  }
-  @keyframes revealResult {
-    0%, 70% { color: transparent; background: #f9fafb; }
-    75%, 100% { color: #059669; background: #d1fae5; font-weight: 600; }
-  }
+  @keyframes rowFlash { 0%, 25%, 75%, 100% { background: #ffffff; } 35%, 65% { background: var(--highlight); } }
+  @keyframes colFlash { 0%, 5%, 35%, 100% { background: #ffffff; } 10%, 30% { background: #dbeafe; } }
+  @keyframes returnFlash { 0%, 60%, 95%, 100% { background: #ffffff; } 65%, 90% { background: #d1fae5; } }
+  @keyframes pulseHighlight { 0%, 100% { background: transparent; } 5%, 25% { background: var(--highlight); } }
+  @keyframes revealResult { 0%, 70% { color: transparent; background: #f9fafb; } 75%, 100% { color: #059669; background: #d1fae5; font-weight: 600; } }
 
-  /* ----- Tip / IB callout boxes ----- */
-  .tip-box, .ib-box {
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin: 12px 0;
-  }
+  .tip-box, .ib-box { border-radius: 10px; padding: 16px 20px; margin: 12px 0; }
   .tip-box { background: var(--tip-bg); border-left: 4px solid var(--tip-border); }
   .ib-box { background: var(--ib-bg); border-left: 4px solid var(--ib-border); }
-  .tip-box h4, .ib-box h4 {
-    margin: 0 0 6px;
-    font-size: 15px;
-    color: var(--ink);
-  }
+  .tip-box h4, .ib-box h4 { margin: 0 0 6px; font-size: 15px; color: var(--ink); }
   .tip-box p, .ib-box p { margin: 6px 0; font-size: 14px; }
   .tip-box ul, .ib-box ul { margin: 6px 0 0 20px; padding: 0; font-size: 14px; }
   .tip-box li, .ib-box li { margin: 4px 0; }
 
-  /* ----- Tables (errors, number formats) ----- */
   table.ref {
     width: 100%;
     border-collapse: collapse;
@@ -372,61 +488,31 @@
     box-shadow: var(--shadow);
     font-size: 14px;
   }
-  table.ref th {
-    background: var(--accent-soft);
-    color: var(--accent);
-    text-align: left;
-    padding: 10px 14px;
-    font-weight: 600;
-    font-size: 13px;
-  }
-  table.ref td {
-    padding: 10px 14px;
-    border-top: 1px solid var(--border);
-    vertical-align: top;
-  }
-  table.ref code {
-    background: var(--code-bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1px 5px;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-    font-size: 12px;
-  }
+  table.ref th { background: var(--accent-soft); color: var(--accent); text-align: left; padding: 10px 14px; font-weight: 600; font-size: 13px; }
+  table.ref td { padding: 10px 14px; border-top: 1px solid var(--border); vertical-align: top; }
+  table.ref code { background: var(--code-bg); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12px; }
 
-  footer {
-    margin-top: 60px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--muted);
-    text-align: center;
-  }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
 
-  /* ----- Responsive: stack sidebar on small screens ----- */
   @media (max-width: 900px) {
     .layout { grid-template-columns: 1fr; }
-    aside.sidebar {
-      position: static;
-      max-height: none;
-      margin-bottom: 24px;
-      padding: 16px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-    }
+    aside.sidebar { position: static; max-height: none; margin-bottom: 24px; padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
+    .nav-search { width: 200px; }
+    .nav-tabs { padding-left: 12px; }
+  }
+  @media (max-width: 600px) {
+    .nav-brand span:not(.logo) { display: none; }
+    .nav-search { width: 160px; }
   }
 
-  /* ----- Print ----- */
   @media print {
     body { background: white; }
+    nav.top-nav { display: none; }
     .container { padding: 20px; max-width: 100%; }
     .layout { grid-template-columns: 1fr; }
     aside.sidebar { display: none; }
     .card, .concept-card { box-shadow: none; break-inside: avoid; }
     section.category { break-inside: avoid; }
-    .part { break-before: auto; }
-    /* Freeze animations on the meaningful "match" frame */
     .demo-vlookup .xl-cell.match-row { background: var(--highlight); animation: none; }
     .demo-vlookup .xl-cell.return-cell { background: #d1fae5; animation: none; }
     .demo-vlookup .result-cell { color: #059669; background: #d1fae5; font-weight: 600; animation: none; }
@@ -438,10 +524,28 @@
 </style>
 </head>
 <body>
+
+<nav class="top-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="logo">CS</span>
+      <span>Cheat Sheets</span>
+    </a>
+    <div class="nav-tabs">
+      <a href="index.html" class="nav-tab active">Excel</a>
+      <a href="powerpoint.html" class="nav-tab">PowerPoint</a>
+    </div>
+    <div class="nav-search">
+      <input type="search" id="searchInput" placeholder="Search shortcuts, functions…" autocomplete="off">
+      <div id="searchResults" class="search-results" role="listbox"></div>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
 
   <header class="page">
-    <h1>My Excel Shortcuts &amp; Functions Cheat Sheet</h1>
+    <h1>Excel Shortcuts &amp; Functions</h1>
     <p>A personal, growing reference of the Excel skills I actually use — built up shortcut by shortcut.</p>
     <div class="meta">
       <strong>Owner:</strong> Zander &nbsp;·&nbsp;
@@ -452,11 +556,10 @@
 
   <div class="layout">
 
-    <!-- ============================ SIDEBAR TOC ============================ -->
     <aside class="sidebar">
       <nav>
         <div class="toc-group">
-          <h4>Shortcuts</h4>
+          <h4><span class="toc-icon">⌨</span> Shortcuts</h4>
           <ul>
             <li><a href="#cat-navigation">Navigation</a></li>
             <li><a href="#cat-editing">Editing &amp; References</a></li>
@@ -467,10 +570,10 @@
           </ul>
         </div>
         <div class="toc-group">
-          <h4>Functions &amp; Formulas</h4>
+          <h4><span class="toc-icon">ƒ</span> Functions</h4>
           <ul>
             <li><a href="#cat-lookups">Lookup</a></li>
-            <li><a href="#cat-logical">Logical &amp; Conditional</a></li>
+            <li><a href="#cat-logical">Logical</a></li>
             <li><a href="#cat-financial">Financial</a></li>
             <li><a href="#cat-date">Date</a></li>
             <li><a href="#cat-text">Text</a></li>
@@ -478,17 +581,17 @@
           </ul>
         </div>
         <div class="toc-group">
-          <h4>IB Toolkit</h4>
+          <h4><span class="toc-icon">$</span> IB Toolkit</h4>
           <ul>
-            <li><a href="#cat-ib-tips">Pro Tips &amp; Conventions</a></li>
-            <li><a href="#cat-numfmt">Custom Number Formats</a></li>
-            <li><a href="#cat-sensitivity">Sensitivity Analysis</a></li>
-            <li><a href="#cat-3stmt">Three-Statement Linking</a></li>
-            <li><a href="#cat-circular">Circular References</a></li>
+            <li><a href="#cat-ib-tips">Pro Tips</a></li>
+            <li><a href="#cat-numfmt">Number Formats</a></li>
+            <li><a href="#cat-sensitivity">Sensitivity</a></li>
+            <li><a href="#cat-3stmt">3-Statement</a></li>
+            <li><a href="#cat-circular">Circular Refs</a></li>
           </ul>
         </div>
         <div class="toc-group">
-          <h4>Reference</h4>
+          <h4><span class="toc-icon">?</span> Reference</h4>
           <ul>
             <li><a href="#cat-errors">Common Errors</a></li>
             <li><a href="#cat-memory">Memory Tips</a></li>
@@ -497,10 +600,8 @@
       </nav>
     </aside>
 
-    <!-- ============================ MAIN CONTENT ============================ -->
     <main>
 
-      <!-- ============== PART 1: SHORTCUTS ============== -->
       <div class="part">
         <span class="part-eyebrow">Part 1</span>
         <h2 class="part-title">Shortcuts</h2>
@@ -510,42 +611,11 @@
           <h3>Navigation</h3>
           <p class="intro">Get around big spreadsheets fast.</p>
           <div class="grid">
-            <div class="card">
-              <div class="action">Jump to the edge of the data block in any direction</div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">↑ ↓ ← →</span>
-              </div>
-              <div class="note">If the cell is empty, jumps to the next non-empty cell. If filled, jumps to the last filled cell in that direction.</div>
-            </div>
-            <div class="card">
-              <div class="action">Select from current cell to the edge of the data <span class="ib-tag">IB</span></div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">Shift</span><span class="plus">+</span>
-                <span class="key">↑ ↓ ← →</span>
-              </div>
-              <div class="note">The bread-and-butter way to grab an entire column or row of data.</div>
-            </div>
-            <div class="card">
-              <div class="action">Go to cell A1</div>
-              <div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Home</span></div>
-            </div>
-            <div class="card">
-              <div class="action">Go to a specific cell or named range (Go To dialog)</div>
-              <div class="keys">
-                <span class="key">F5</span><span class="plus">or</span>
-                <span class="key">Ctrl</span><span class="plus">+</span><span class="key">G</span>
-              </div>
-              <div class="note">Use <strong>F5 → Special</strong> to find all blanks, formulas, constants, etc. Pro auditing tool.</div>
-            </div>
-            <div class="card">
-              <div class="action">Switch between worksheet tabs</div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">PgUp</span><span class="plus">/</span><span class="key">PgDn</span>
-              </div>
-            </div>
+            <div class="card"><div class="action">Jump to the edge of the data block in any direction</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">↑ ↓ ← →</span></div><div class="note">If empty, jumps to next non-empty cell. If filled, jumps to the last filled cell.</div></div>
+            <div class="card"><div class="action">Select from current cell to the edge of the data <span class="ib-tag">IB</span></div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">↑ ↓ ← →</span></div><div class="note">Bread-and-butter way to grab an entire column or row.</div></div>
+            <div class="card"><div class="action">Go to cell A1</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Home</span></div></div>
+            <div class="card"><div class="action">Go to a specific cell or named range (Go To dialog)</div><div class="keys"><span class="key">F5</span><span class="plus">or</span><span class="key">Ctrl</span><span class="plus">+</span><span class="key">G</span></div><div class="note"><strong>F5 → Special</strong> finds blanks, formulas, constants.</div></div>
+            <div class="card"><div class="action">Switch between worksheet tabs</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">PgUp</span><span class="plus">/</span><span class="key">PgDn</span></div></div>
           </div>
         </section>
 
@@ -553,38 +623,11 @@
           <h3>Editing &amp; References</h3>
           <p class="intro">The keys you'll hit hundreds of times a day.</p>
           <div class="grid">
-            <div class="card">
-              <div class="action">Edit the active cell</div>
-              <div class="keys"><span class="key">F2</span></div>
-              <div class="note">Drops cursor inside the formula. Indispensable for tweaking without retyping.</div>
-            </div>
-            <div class="card">
-              <div class="action">Toggle absolute / relative references ($A$1 ↔ A$1 ↔ $A1 ↔ A1) <span class="ib-tag">IB</span></div>
-              <div class="keys"><span class="key">F4</span></div>
-              <div class="note">Press while editing. The single most-used key in IB modeling.</div>
-            </div>
-            <div class="card">
-              <div class="action">AutoSum the column or row</div>
-              <div class="keys"><span class="key">Alt</span><span class="plus">+</span><span class="key">=</span></div>
-              <div class="note">Excel guesses the range; press Enter to accept.</div>
-            </div>
-            <div class="card">
-              <div class="action">Paste Special dialog <span class="ib-tag">IB</span></div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">Alt</span><span class="plus">+</span>
-                <span class="key">V</span>
-              </div>
-              <div class="note">Then press a single letter: <strong>V</strong>=values, <strong>F</strong>=formulas, <strong>T</strong>=formats, <strong>E</strong>=transpose.</div>
-            </div>
-            <div class="card">
-              <div class="action">Undo / Redo</div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Z</span>
-                <span class="plus">/</span>
-                <span class="key">Ctrl</span><span class="plus">+</span><span class="key">Y</span>
-              </div>
-            </div>
+            <div class="card"><div class="action">Edit the active cell</div><div class="keys"><span class="key">F2</span></div><div class="note">Drops cursor inside the formula.</div></div>
+            <div class="card"><div class="action">Toggle absolute / relative references ($A$1 ↔ A$1 ↔ $A1 ↔ A1) <span class="ib-tag">IB</span></div><div class="keys"><span class="key">F4</span></div><div class="note">The single most-used key in IB modeling.</div></div>
+            <div class="card"><div class="action">AutoSum</div><div class="keys"><span class="key">Alt</span><span class="plus">+</span><span class="key">=</span></div></div>
+            <div class="card"><div class="action">Paste Special dialog <span class="ib-tag">IB</span></div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Alt</span><span class="plus">+</span><span class="key">V</span></div><div class="note">Then a single letter: <strong>V</strong>=values, <strong>F</strong>=formulas, <strong>T</strong>=formats, <strong>E</strong>=transpose.</div></div>
+            <div class="card"><div class="action">Undo / Redo</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Z</span><span class="plus">/</span><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Y</span></div></div>
           </div>
         </section>
 
@@ -592,54 +635,12 @@
           <h3>Formatting</h3>
           <p class="intro">IB shops are obsessive about formatting consistency.</p>
           <div class="grid">
-            <div class="card">
-              <div class="action">Format Cells dialog (the master menu) <span class="ib-tag">IB</span></div>
-              <div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">1</span></div>
-              <div class="note">Number formats, alignment, fonts, borders, fill — all in one place.</div>
-            </div>
-            <div class="card">
-              <div class="action">Bold / Italic / Underline</div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">B</span><span class="plus">/</span>
-                <span class="key">I</span><span class="plus">/</span>
-                <span class="key">U</span>
-              </div>
-            </div>
-            <div class="card">
-              <div class="action">Number with thousands separator (1,234.00) <span class="ib-tag">IB</span></div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">Shift</span><span class="plus">+</span>
-                <span class="key">1</span>
-              </div>
-              <div class="note">The standard "money-but-not-currency" IB format.</div>
-            </div>
-            <div class="card">
-              <div class="action">Currency ($1,234.00)</div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">Shift</span><span class="plus">+</span>
-                <span class="key">4</span>
-              </div>
-            </div>
-            <div class="card">
-              <div class="action">Percentage</div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">Shift</span><span class="plus">+</span>
-                <span class="key">5</span>
-              </div>
-            </div>
-            <div class="card">
-              <div class="action">Apply borders via the borders menu</div>
-              <div class="keys">
-                <span class="key">Alt</span><span class="plus">then</span>
-                <span class="key">H</span><span class="plus">,</span>
-                <span class="key">B</span>
-              </div>
-              <div class="note">Outline border alone: <span class="key">Ctrl</span>+<span class="key">Shift</span>+<span class="key">7</span>.</div>
-            </div>
+            <div class="card"><div class="action">Format Cells dialog <span class="ib-tag">IB</span></div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">1</span></div><div class="note">Number formats, alignment, fonts, borders — all in one place.</div></div>
+            <div class="card"><div class="action">Bold / Italic / Underline</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">B</span><span class="plus">/</span><span class="key">I</span><span class="plus">/</span><span class="key">U</span></div></div>
+            <div class="card"><div class="action">Number with thousands separator (1,234.00) <span class="ib-tag">IB</span></div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">1</span></div><div class="note">Standard "money-but-not-currency" IB format.</div></div>
+            <div class="card"><div class="action">Currency ($1,234.00)</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">4</span></div></div>
+            <div class="card"><div class="action">Percentage</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">5</span></div></div>
+            <div class="card"><div class="action">Apply borders via the borders menu</div><div class="keys"><span class="key">Alt</span><span class="plus">then</span><span class="key">H</span><span class="plus">,</span><span class="key">B</span></div><div class="note">Outline border alone: <span class="key">Ctrl</span>+<span class="key">Shift</span>+<span class="key">7</span>.</div></div>
           </div>
         </section>
 
@@ -647,98 +648,40 @@
           <h3>View &amp; Audit</h3>
           <p class="intro">Navigating big models and tracing where numbers come from.</p>
           <div class="grid">
-            <div class="card">
-              <div class="action">Freeze panes</div>
-              <div class="keys">
-                <span class="key">Alt</span><span class="plus">then</span>
-                <span class="key">W</span><span class="plus">,</span>
-                <span class="key">F</span><span class="plus">,</span>
-                <span class="key">F</span>
-              </div>
-              <div class="note">Click below and to the right of where you want the freeze line first.</div>
-            </div>
-            <div class="card">
-              <div class="action">Hide / Unhide rows</div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span><span class="key">9</span>
-                <span class="plus">/</span>
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">Shift</span><span class="plus">+</span><span class="key">9</span>
-              </div>
-            </div>
-            <div class="card">
-              <div class="action">Hide columns</div>
-              <div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">0</span></div>
-              <div class="note">Unhide: select columns on either side, then <span class="key">Alt</span>, <span class="key">H</span>, <span class="key">O</span>, <span class="key">U</span>, <span class="key">L</span>.</div>
-            </div>
-            <div class="card">
-              <div class="action">Trace precedents (jump to the source) <span class="ib-tag">IB</span></div>
-              <div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">[</span></div>
-              <div class="note"><span class="key">Ctrl</span>+<span class="key">]</span> for dependents. Jump back with <span class="key">F5</span>, <span class="key">Enter</span>.</div>
-            </div>
+            <div class="card"><div class="action">Freeze panes</div><div class="keys"><span class="key">Alt</span><span class="plus">then</span><span class="key">W</span><span class="plus">,</span><span class="key">F</span><span class="plus">,</span><span class="key">F</span></div><div class="note">Click below and right of where you want the freeze line first.</div></div>
+            <div class="card"><div class="action">Hide / Unhide rows</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">9</span><span class="plus">/</span><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">9</span></div></div>
+            <div class="card"><div class="action">Hide columns</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">0</span></div><div class="note">Unhide: <span class="key">Alt</span>, <span class="key">H</span>, <span class="key">O</span>, <span class="key">U</span>, <span class="key">L</span>.</div></div>
+            <div class="card"><div class="action">Trace precedents <span class="ib-tag">IB</span></div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">[</span></div><div class="note"><span class="key">Ctrl</span>+<span class="key">]</span> for dependents. Jump back with <span class="key">F5</span>, <span class="key">Enter</span>.</div></div>
           </div>
         </section>
 
         <section class="category" id="cat-fill">
           <h3>Fill &amp; Autofill</h3>
           <div class="grid">
-            <div class="card">
-              <div class="action">Autofill a series (dates, numbers) without dragging</div>
-              <div class="keys">
-                <span class="key">Alt</span><span class="plus">then</span>
-                <span class="key">H</span><span class="plus">,</span>
-                <span class="key">F</span><span class="plus">,</span>
-                <span class="key">I</span><span class="plus">,</span>
-                <span class="key">S</span>
-              </div>
-              <div class="note">Type the first date, select the range, press the keys in sequence. In the Series dialog, choose <strong>Date</strong> and set the step.</div>
-            </div>
-            <div class="card">
-              <div class="action">Fill Down (copies above into selection — no incrementing)</div>
-              <div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">D</span></div>
-              <div class="note">Useful for copying formulas. Does <em>not</em> recognize date or number patterns.</div>
-            </div>
-            <div class="card">
-              <div class="action">Insert today's date (static)</div>
-              <div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">;</span></div>
-            </div>
+            <div class="card"><div class="action">Autofill a series (dates, numbers) without dragging</div><div class="keys"><span class="key">Alt</span><span class="plus">then</span><span class="key">H</span><span class="plus">,</span><span class="key">F</span><span class="plus">,</span><span class="key">I</span><span class="plus">,</span><span class="key">S</span></div><div class="note">Type the first date, select the range, press the keys. In Series dialog, choose <strong>Date</strong> and set the step.</div></div>
+            <div class="card"><div class="action">Fill Down (copies above into selection)</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">D</span></div><div class="note">Useful for copying formulas. Doesn't recognize series patterns.</div></div>
+            <div class="card"><div class="action">Insert today's date (static)</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">;</span></div></div>
           </div>
         </section>
 
         <section class="category" id="cat-rows-cols">
           <h3>Rows &amp; Columns</h3>
           <div class="grid">
-            <div class="card">
-              <div class="action">Insert a new row (or column) above the selection</div>
-              <div class="keys">
-                <span class="key">Ctrl</span><span class="plus">+</span>
-                <span class="key">Shift</span><span class="plus">+</span>
-                <span class="key">+</span>
-              </div>
-              <div class="note">If a whole row is selected, inserts instantly. On most laptops <span class="key">Ctrl</span>+<span class="key">Shift</span>+<span class="key">=</span> works the same.</div>
-            </div>
-            <div class="card">
-              <div class="action">Select the entire row of the active cell</div>
-              <div class="keys"><span class="key">Shift</span><span class="plus">+</span><span class="key">Space</span></div>
-            </div>
-            <div class="card">
-              <div class="action">Delete the selected row, column, or cells</div>
-              <div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">-</span></div>
-            </div>
+            <div class="card"><div class="action">Insert a new row (or column) above the selection</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">+</span></div><div class="note">If a whole row is selected, inserts instantly.</div></div>
+            <div class="card"><div class="action">Select the entire row of the active cell</div><div class="keys"><span class="key">Shift</span><span class="plus">+</span><span class="key">Space</span></div></div>
+            <div class="card"><div class="action">Delete the selected row, column, or cells</div><div class="keys"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">-</span></div></div>
           </div>
         </section>
       </div>
 
-      <!-- ============== PART 2: FUNCTIONS & FORMULAS ============== -->
       <div class="part">
         <span class="part-eyebrow">Part 2</span>
         <h2 class="part-title">Functions &amp; Formulas</h2>
         <p class="part-blurb">The formulas that do the actual work — lookups, conditional logic, financial math, date handling, and text manipulation.</p>
 
-        <!-- Lookup Functions -->
         <section class="category" id="cat-lookups">
           <h3>Lookup Functions</h3>
-          <p class="intro">Pull a value from one place into another based on a matching key. Mastering these is non-negotiable.</p>
+          <p class="intro">Pull a value from one place into another based on a matching key.</p>
 
           <div class="concept-card">
             <h4>VLOOKUP</h4>
@@ -747,49 +690,22 @@
             <div class="layout-2col">
               <div>
                 <p><strong>Best for:</strong></p>
-                <ul>
-                  <li>Quick lookups where the data layout is fixed</li>
-                  <li>Pulling a single field (price, name, category) using an ID</li>
-                </ul>
+                <ul><li>Quick lookups where the data layout is fixed</li><li>Pulling a single field using an ID</li></ul>
                 <p><strong>Watch out for:</strong></p>
-                <ul>
-                  <li>Can't look <em>left</em> — key column must be column 1</li>
-                  <li>Inserting a column inside <code class="inline">table_array</code> breaks the formula</li>
-                  <li>Slower than INDEX/MATCH on large datasets</li>
-                </ul>
-                <p><strong>Always use <code class="inline">FALSE</code> (or 0)</strong> as the last argument unless you specifically want approximate match (rare).</p>
+                <ul><li>Can't look <em>left</em> — key column must be column 1</li><li>Inserting a column inside <code class="inline">table_array</code> breaks it</li><li>Slower than INDEX/MATCH on large datasets</li></ul>
+                <p><strong>Always use <code class="inline">FALSE</code> (or 0)</strong> as the last argument for exact match.</p>
               </div>
               <div class="demo demo-vlookup">
                 <div class="demo-title">Animated example — finds Carol's department</div>
                 <div class="xl-formula">=VLOOKUP(<span class="lookup-val">"E003"</span>, A2:D5, 3, FALSE) → <span class="result-cell">Engineering</span></div>
                 <div class="xl-grid">
-                  <div class="xl-cell xl-corner"></div>
-                  <div class="xl-cell xl-colhead">A (ID)</div>
-                  <div class="xl-cell xl-colhead">B (Name)</div>
-                  <div class="xl-cell xl-colhead">C (Dept)</div>
-                  <div class="xl-cell xl-colhead">D (Salary)</div>
-                  <div class="xl-cell xl-rownum">2</div>
-                  <div class="xl-cell col-key">E001</div>
-                  <div class="xl-cell">Alice</div>
-                  <div class="xl-cell">Marketing</div>
-                  <div class="xl-cell">65,000</div>
-                  <div class="xl-cell xl-rownum">3</div>
-                  <div class="xl-cell col-key">E002</div>
-                  <div class="xl-cell">Bob</div>
-                  <div class="xl-cell">Sales</div>
-                  <div class="xl-cell">70,000</div>
-                  <div class="xl-cell xl-rownum match-row">4</div>
-                  <div class="xl-cell col-key match-row">E003</div>
-                  <div class="xl-cell match-row">Carol</div>
-                  <div class="xl-cell match-row return-cell">Engineering</div>
-                  <div class="xl-cell match-row">90,000</div>
-                  <div class="xl-cell xl-rownum">5</div>
-                  <div class="xl-cell col-key">E004</div>
-                  <div class="xl-cell">Dave</div>
-                  <div class="xl-cell">Finance</div>
-                  <div class="xl-cell">75,000</div>
+                  <div class="xl-cell xl-corner"></div><div class="xl-cell xl-colhead">A (ID)</div><div class="xl-cell xl-colhead">B (Name)</div><div class="xl-cell xl-colhead">C (Dept)</div><div class="xl-cell xl-colhead">D (Salary)</div>
+                  <div class="xl-cell xl-rownum">2</div><div class="xl-cell col-key">E001</div><div class="xl-cell">Alice</div><div class="xl-cell">Marketing</div><div class="xl-cell">65,000</div>
+                  <div class="xl-cell xl-rownum">3</div><div class="xl-cell col-key">E002</div><div class="xl-cell">Bob</div><div class="xl-cell">Sales</div><div class="xl-cell">70,000</div>
+                  <div class="xl-cell xl-rownum match-row">4</div><div class="xl-cell col-key match-row">E003</div><div class="xl-cell match-row">Carol</div><div class="xl-cell match-row return-cell">Engineering</div><div class="xl-cell match-row">90,000</div>
+                  <div class="xl-cell xl-rownum">5</div><div class="xl-cell col-key">E004</div><div class="xl-cell">Dave</div><div class="xl-cell">Finance</div><div class="xl-cell">75,000</div>
                 </div>
-                <p class="note" style="margin-top:6px">Blue = scanning key column, yellow = match found, green = return value.</p>
+                <p class="note" style="margin-top:6px">Blue = scanning, yellow = match, green = return.</p>
               </div>
             </div>
           </div>
@@ -800,358 +716,216 @@
             <div class="formula">=INDEX(<span class="arg-2">return_range</span>, MATCH(<span class="arg-1">lookup_value</span>, <span class="arg-3">lookup_range</span>, 0))</div>
             <div class="layout-2col">
               <div>
-                <p><strong>How it works in two steps:</strong></p>
-                <ul>
-                  <li><strong>MATCH</strong> finds the row position of the lookup value (e.g., "E003" → 3)</li>
-                  <li><strong>INDEX</strong> returns the value at that position from the column you choose</li>
-                </ul>
+                <p><strong>How it works:</strong></p>
+                <ul><li><strong>MATCH</strong> finds the row position of the lookup value</li><li><strong>INDEX</strong> returns the value at that position from the column you choose</li></ul>
                 <p><strong>Best for IB because:</strong></p>
-                <ul>
-                  <li>Doesn't break when columns shift around</li>
-                  <li>Can look left as well as right</li>
-                  <li>Two-way lookups possible (with two MATCH calls)</li>
-                  <li>The IB industry standard</li>
-                </ul>
+                <ul><li>Doesn't break when columns shift</li><li>Can look left as well as right</li><li>The IB industry standard</li></ul>
                 <p style="margin-top:10px;font-size:13px"><strong>XLOOKUP note:</strong> Excel 365/2019+ has <code class="inline">XLOOKUP</code> which combines both. Use it personally, but learn INDEX/MATCH for compatibility.</p>
               </div>
               <div class="demo demo-indexmatch">
-                <div class="demo-title">Animated example — same lookup, INDEX/MATCH style</div>
+                <div class="demo-title">Animated example — INDEX/MATCH style</div>
                 <div class="xl-formula">=INDEX(C2:C5, MATCH("E003", A2:A5, 0)) → <span class="result-cell-im">Engineering</span></div>
                 <div class="xl-grid">
-                  <div class="xl-cell xl-corner"></div>
-                  <div class="xl-cell xl-colhead">A (ID)</div>
-                  <div class="xl-cell xl-colhead">B (Name)</div>
-                  <div class="xl-cell xl-colhead">C (Dept)</div>
-                  <div class="xl-cell xl-colhead">D (Salary)</div>
-                  <div class="xl-cell xl-rownum">2</div>
-                  <div class="xl-cell match-col">E001</div>
-                  <div class="xl-cell">Alice</div>
-                  <div class="xl-cell return-col">Marketing</div>
-                  <div class="xl-cell">65,000</div>
-                  <div class="xl-cell xl-rownum">3</div>
-                  <div class="xl-cell match-col">E002</div>
-                  <div class="xl-cell">Bob</div>
-                  <div class="xl-cell return-col">Sales</div>
-                  <div class="xl-cell">70,000</div>
-                  <div class="xl-cell xl-rownum match-row-im">4</div>
-                  <div class="xl-cell match-col match-row-im">E003</div>
-                  <div class="xl-cell match-row-im">Carol</div>
-                  <div class="xl-cell return-col match-row-im return-cell-im">Engineering</div>
-                  <div class="xl-cell match-row-im">90,000</div>
-                  <div class="xl-cell xl-rownum">5</div>
-                  <div class="xl-cell match-col">E004</div>
-                  <div class="xl-cell">Dave</div>
-                  <div class="xl-cell return-col">Finance</div>
-                  <div class="xl-cell">75,000</div>
+                  <div class="xl-cell xl-corner"></div><div class="xl-cell xl-colhead">A (ID)</div><div class="xl-cell xl-colhead">B (Name)</div><div class="xl-cell xl-colhead">C (Dept)</div><div class="xl-cell xl-colhead">D (Salary)</div>
+                  <div class="xl-cell xl-rownum">2</div><div class="xl-cell match-col">E001</div><div class="xl-cell">Alice</div><div class="xl-cell return-col">Marketing</div><div class="xl-cell">65,000</div>
+                  <div class="xl-cell xl-rownum">3</div><div class="xl-cell match-col">E002</div><div class="xl-cell">Bob</div><div class="xl-cell return-col">Sales</div><div class="xl-cell">70,000</div>
+                  <div class="xl-cell xl-rownum match-row-im">4</div><div class="xl-cell match-col match-row-im">E003</div><div class="xl-cell match-row-im">Carol</div><div class="xl-cell return-col match-row-im return-cell-im">Engineering</div><div class="xl-cell match-row-im">90,000</div>
+                  <div class="xl-cell xl-rownum">5</div><div class="xl-cell match-col">E004</div><div class="xl-cell">Dave</div><div class="xl-cell return-col">Finance</div><div class="xl-cell">75,000</div>
                 </div>
-                <p class="note" style="margin-top:6px">Step 1 (blue): MATCH scans column A. Step 2 (blue→green): INDEX returns from column C.</p>
+                <p class="note" style="margin-top:6px">Step 1 (blue): MATCH scans column A. Step 2 (green): INDEX returns from column C.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Logical & Conditional Functions -->
         <section class="category" id="cat-logical">
           <h3>Logical &amp; Conditional Functions</h3>
-          <p class="intro">Branching logic and conditional aggregation. <code class="inline">IFERROR</code> and <code class="inline">SUMIFS</code> in particular are used in basically every IB model.</p>
+          <p class="intro">Branching logic and conditional aggregation. Used in basically every IB model.</p>
 
           <div class="concept-card">
             <h4>IF</h4>
-            <p class="tagline">Branch on a condition: do one thing if true, another if false.</p>
+            <p class="tagline">Branch on a condition.</p>
             <div class="formula">=IF(<span class="arg-1">condition</span>, <span class="arg-2">value_if_true</span>, <span class="arg-3">value_if_false</span>)</div>
             <p><strong>Examples:</strong></p>
             <div class="formula">=IF(A1&gt;100, "High", "Low")</div>
-            <div class="formula">=IF(Revenue&gt;Budget, Revenue-Budget, 0)  &nbsp;<span style="color:var(--muted)">// only show overage</span></div>
-            <p><strong>Nesting:</strong> You can nest IFs (<code class="inline">=IF(x, a, IF(y, b, c))</code>) but if you find yourself nesting more than 2 deep, switch to <code class="inline">IFS</code> or a lookup table — easier to read and audit.</p>
+            <div class="formula">=IF(Revenue&gt;Budget, Revenue-Budget, 0)</div>
+            <p><strong>Nesting:</strong> If you nest more than 2 deep, switch to <code class="inline">IFS</code> or a lookup table.</p>
           </div>
 
           <div class="concept-card">
             <h4>IFERROR <span class="ib-tag">IB</span></h4>
             <p class="tagline">Wraps a formula to show a clean fallback when it errors. Used in every model.</p>
             <div class="formula">=IFERROR(<span class="arg-1">formula</span>, <span class="arg-2">value_if_error</span>)</div>
-            <p><strong>Common uses:</strong></p>
             <div class="formula">=IFERROR(VLOOKUP(A1, Data, 2, FALSE), "Not found")</div>
-            <div class="formula">=IFERROR(B1/C1, 0)  &nbsp;<span style="color:var(--muted)">// hides #DIV/0!</span></div>
-            <p>Without <code class="inline">IFERROR</code>, a missing lookup or a divide-by-zero blows up your whole model with red errors. Wrapping it makes the model resilient.</p>
-            <p><strong>Caution:</strong> Don't blanket-wrap everything. Errors are sometimes telling you about a real bug — only suppress them when you genuinely expect missing values.</p>
+            <div class="formula">=IFERROR(B1/C1, 0)</div>
+            <p>Without it, missing lookups or divide-by-zero blow up your whole model.</p>
+            <p><strong>Caution:</strong> Don't blanket-wrap everything — errors sometimes signal real bugs.</p>
           </div>
 
           <div class="concept-card">
             <h4>SUMIFS <span class="ib-tag">IB</span></h4>
-            <p class="tagline">Sum a range only where multiple conditions are met. The conditional total workhorse.</p>
-            <div class="formula">=SUMIFS(<span class="arg-2">sum_range</span>, <span class="arg-1">criteria_range1</span>, <span class="arg-3">criteria1</span>, <span class="arg-1">criteria_range2</span>, <span class="arg-3">criteria2</span>, ...)</div>
+            <p class="tagline">Sum a range only where multiple conditions are met.</p>
+            <div class="formula">=SUMIFS(<span class="arg-2">sum_range</span>, <span class="arg-1">criteria_range1</span>, <span class="arg-3">criteria1</span>, ...)</div>
             <p><strong>Example:</strong> total Q1 revenue from the North region:</p>
             <div class="formula">=SUMIFS(Revenue, Region, "North", Quarter, "Q1")</div>
-            <p><strong>Operators in criteria:</strong> use <code class="inline">"&gt;100"</code>, <code class="inline">"&lt;=50"</code>, <code class="inline">"&lt;&gt;A"</code>, or <code class="inline">"*Inc*"</code> (wildcard) inside quotes.</p>
-            <p><strong>Sister functions:</strong> <code class="inline">COUNTIFS</code> (counts rows meeting criteria), <code class="inline">AVERAGEIFS</code> (average), <code class="inline">MAXIFS</code>/<code class="inline">MINIFS</code> (max/min).</p>
+            <p><strong>Operators in criteria:</strong> <code class="inline">"&gt;100"</code>, <code class="inline">"&lt;=50"</code>, <code class="inline">"*Inc*"</code> (wildcard).</p>
+            <p><strong>Sister functions:</strong> <code class="inline">COUNTIFS</code>, <code class="inline">AVERAGEIFS</code>, <code class="inline">MAXIFS</code>/<code class="inline">MINIFS</code>.</p>
           </div>
 
           <div class="concept-card">
             <h4>COUNTIFS</h4>
             <p class="tagline">Count rows where multiple conditions hold.</p>
-            <div class="formula">=COUNTIFS(<span class="arg-1">criteria_range1</span>, <span class="arg-3">criteria1</span>, <span class="arg-1">criteria_range2</span>, <span class="arg-3">criteria2</span>, ...)</div>
-            <p><strong>Example:</strong> count of closed deals in EMEA this year:</p>
+            <div class="formula">=COUNTIFS(<span class="arg-1">criteria_range1</span>, <span class="arg-3">criteria1</span>, ...)</div>
             <div class="formula">=COUNTIFS(Status, "Closed", Region, "EMEA", Year, 2026)</div>
-            <p>Same syntax as SUMIFS but no <code class="inline">sum_range</code> argument — it just counts the matching rows.</p>
           </div>
         </section>
 
-        <!-- Financial Functions -->
         <section class="category" id="cat-financial">
           <h3>Financial Functions</h3>
-          <p class="intro">The valuation building blocks. <code class="inline">XNPV</code> and <code class="inline">XIRR</code> are the dated versions and are usually preferred in IB.</p>
+          <p class="intro">The valuation building blocks. <code class="inline">XNPV</code> and <code class="inline">XIRR</code> handle real (irregular) dates.</p>
 
           <div class="concept-card">
             <h4>NPV &amp; XNPV <span class="ib-tag">IB</span></h4>
-            <p class="tagline">Present value of a series of cash flows discounted at a rate.</p>
+            <p class="tagline">Present value of cash flows discounted at a rate.</p>
             <div class="formula">=NPV(<span class="arg-1">rate</span>, <span class="arg-2">cashflow1, cashflow2, ...</span>)</div>
             <div class="formula">=XNPV(<span class="arg-1">rate</span>, <span class="arg-2">cashflows</span>, <span class="arg-3">dates</span>)</div>
-            <p><strong>Critical NPV gotcha:</strong> Excel's <code class="inline">NPV</code> assumes the first cash flow is at the END of period 1, not period 0. So if you have an initial investment at t=0, add it <em>outside</em> the function:</p>
-            <div class="formula">=A1 + NPV(rate, B1:Z1)  &nbsp;<span style="color:var(--muted)">// A1 is the t=0 investment</span></div>
-            <p><strong>Use XNPV instead</strong> when you have actual dates rather than assumed equal periods. It uses precise day-count and handles t=0 correctly.</p>
+            <p><strong>Critical NPV gotcha:</strong> Excel's <code class="inline">NPV</code> assumes the first cash flow is at the END of period 1. If you have a t=0 investment, add it outside:</p>
+            <div class="formula">=A1 + NPV(rate, B1:Z1)</div>
+            <p><strong>Use XNPV instead</strong> when you have actual dates — uses precise day-count and handles t=0 correctly.</p>
           </div>
 
           <div class="concept-card">
             <h4>IRR &amp; XIRR <span class="ib-tag">IB</span></h4>
-            <p class="tagline">The discount rate that makes NPV equal zero — i.e., the implied return on a stream of cash flows.</p>
+            <p class="tagline">The discount rate that makes NPV equal zero — the implied return.</p>
             <div class="formula">=IRR(<span class="arg-2">cashflows</span>, <span class="arg-4">[guess]</span>)</div>
             <div class="formula">=XIRR(<span class="arg-2">cashflows</span>, <span class="arg-3">dates</span>, <span class="arg-4">[guess]</span>)</div>
-            <p>The first cash flow is typically negative (the initial investment); subsequent cash flows are positive (returns). If you have irregular dates (almost always true in real deals), use <code class="inline">XIRR</code>.</p>
-            <p><strong>Watch out for:</strong> If cash flows change sign more than once (negative → positive → negative), there can be multiple IRRs. The <code class="inline">[guess]</code> argument helps Excel pick which one to converge on.</p>
+            <p>First cash flow is typically negative (initial investment). Use <code class="inline">XIRR</code> for irregular dates.</p>
           </div>
 
           <div class="concept-card">
             <h4>PMT</h4>
-            <p class="tagline">Periodic payment for a loan with constant payments and a constant interest rate.</p>
+            <p class="tagline">Periodic payment for a loan with constant rate.</p>
             <div class="formula">=PMT(<span class="arg-1">rate</span>, <span class="arg-2">nper</span>, <span class="arg-3">pv</span>, <span class="arg-4">[fv]</span>, <span class="arg-4">[type]</span>)</div>
-            <p><strong>Example:</strong> monthly payment on a $500k mortgage at 6% APR for 30 years:</p>
-            <div class="formula">=PMT(6%/12, 30*12, 500000)  &nbsp;<span style="color:var(--muted)">// returns -2,997.75</span></div>
-            <p>The result is negative because it's a cash outflow. In LBO models you'll use <code class="inline">PMT</code> to size mandatory debt amortization.</p>
-            <p><strong>Tip:</strong> Make sure the rate and periods match — monthly rate with monthly periods, annual with annual.</p>
+            <p>Example: monthly payment on a $500k mortgage at 6% APR for 30 years:</p>
+            <div class="formula">=PMT(6%/12, 30*12, 500000)</div>
+            <p>Result is negative (cash outflow). In LBOs, used to size mandatory debt amortization.</p>
           </div>
         </section>
 
-        <!-- Date Functions -->
         <section class="category" id="cat-date">
           <h3>Date Functions</h3>
-          <p class="intro">For fiscal periods, partial-year discounting, and anything time-aware. <code class="inline">EOMONTH</code> alone is worth the price of admission.</p>
+          <p class="intro">For fiscal periods, partial-year discounting, and anything time-aware.</p>
           <div class="grid">
-            <div class="card">
-              <div class="action">End of month, optionally offset by N months <span class="ib-tag">IB</span></div>
-              <div class="keys"><span class="key">=EOMONTH(start, months)</span></div>
-              <div class="note"><code class="inline">=EOMONTH(TODAY(),0)</code> = last day of this month. <code class="inline">=EOMONTH("2026-01-15",11)</code> = Dec 31, 2026 (year-end).</div>
-            </div>
-            <div class="card">
-              <div class="action">Same date N months later (or earlier with negative)</div>
-              <div class="keys"><span class="key">=EDATE(start, months)</span></div>
-              <div class="note"><code class="inline">=EDATE("2026-01-15", 12)</code> = Jan 15, 2027.</div>
-            </div>
-            <div class="card">
-              <div class="action">Fraction of a year between two dates <span class="ib-tag">IB</span></div>
-              <div class="keys"><span class="key">=YEARFRAC(start, end, [basis])</span></div>
-              <div class="note">Used for partial-year discounting in DCFs. Common basis: <code class="inline">0</code> (30/360) or <code class="inline">1</code> (actual/actual).</div>
-            </div>
-            <div class="card">
-              <div class="action">Build a date from year/month/day</div>
-              <div class="keys"><span class="key">=DATE(year, month, day)</span></div>
-              <div class="note"><code class="inline">=DATE(2026,12,31)</code>. Useful when assembling dates from formula inputs.</div>
-            </div>
-            <div class="card">
-              <div class="action">Today's date (auto-updates)</div>
-              <div class="keys"><span class="key">=TODAY()</span></div>
-              <div class="note">Volatile — recalculates every time the sheet recalculates. Use <span class="key">Ctrl</span>+<span class="key">;</span> for a static date instead.</div>
-            </div>
+            <div class="card"><div class="action">End of month, optionally offset by N months <span class="ib-tag">IB</span></div><div class="keys"><span class="key">=EOMONTH(start, months)</span></div><div class="note"><code class="inline">=EOMONTH(TODAY(),0)</code> = last day of this month.</div></div>
+            <div class="card"><div class="action">Same date N months later</div><div class="keys"><span class="key">=EDATE(start, months)</span></div></div>
+            <div class="card"><div class="action">Fraction of a year between two dates <span class="ib-tag">IB</span></div><div class="keys"><span class="key">=YEARFRAC(start, end, [basis])</span></div><div class="note">For partial-year DCF discounting. Common basis: 0 (30/360) or 1 (actual/actual).</div></div>
+            <div class="card"><div class="action">Build a date from year/month/day</div><div class="keys"><span class="key">=DATE(year, month, day)</span></div></div>
+            <div class="card"><div class="action">Today's date (auto-updates)</div><div class="keys"><span class="key">=TODAY()</span></div><div class="note">Volatile. Use <span class="key">Ctrl</span>+<span class="key">;</span> for static.</div></div>
           </div>
         </section>
 
-        <!-- Text Functions -->
         <section class="category" id="cat-text">
           <h3>Text Functions</h3>
           <p class="intro">Cleaning up data dumps from clients and building dynamic labels.</p>
           <div class="grid">
-            <div class="card">
-              <div class="action">Format a number as a custom-formatted text string</div>
-              <div class="keys"><span class="key">=TEXT(value, "format")</span></div>
-              <div class="note"><code class="inline">=TEXT(A1, "$#,##0.00")</code> or <code class="inline">=TEXT(TODAY(), "mmm-yy")</code>. Useful in chart titles like <code class="inline">"FY"&amp;TEXT(year, "00")</code>.</div>
-            </div>
-            <div class="card">
-              <div class="action">Combine text with the &amp; operator</div>
-              <div class="keys"><span class="key">=A1 &amp; " " &amp; B1</span></div>
-              <div class="note">Cleaner than <code class="inline">CONCATENATE</code>. Example: <code class="inline">="Q"&amp;A1&amp;" "&amp;B1</code> → "Q1 2026".</div>
-            </div>
-            <div class="card">
-              <div class="action">Extract characters from the left, right, or middle</div>
-              <div class="keys"><span class="key">=LEFT(text, n)</span></div>
-              <div class="note">Also <code class="inline">RIGHT(text, n)</code> and <code class="inline">MID(text, start, n)</code>. For pulling apart ticker symbols, IDs, etc.</div>
-            </div>
-            <div class="card">
-              <div class="action">Remove extra spaces (leading, trailing, double)</div>
-              <div class="keys"><span class="key">=TRIM(text)</span></div>
-              <div class="note">First thing to try when a VLOOKUP returns <code class="inline">#N/A</code> for what looks like a match — invisible trailing spaces are often the culprit.</div>
-            </div>
-            <div class="card">
-              <div class="action">Length of a text string</div>
-              <div class="keys"><span class="key">=LEN(text)</span></div>
-              <div class="note">Quick way to verify two cells really do contain the same text.</div>
-            </div>
+            <div class="card"><div class="action">Format a number as a custom-formatted text string</div><div class="keys"><span class="key">=TEXT(value, "format")</span></div><div class="note"><code class="inline">=TEXT(A1, "$#,##0.00")</code></div></div>
+            <div class="card"><div class="action">Combine text with the &amp; operator</div><div class="keys"><span class="key">=A1 &amp; " " &amp; B1</span></div><div class="note">Cleaner than <code class="inline">CONCATENATE</code>.</div></div>
+            <div class="card"><div class="action">Extract characters from left, right, or middle</div><div class="keys"><span class="key">=LEFT(text, n)</span></div><div class="note">Also <code class="inline">RIGHT</code> and <code class="inline">MID(text, start, n)</code>.</div></div>
+            <div class="card"><div class="action">Remove extra spaces</div><div class="keys"><span class="key">=TRIM(text)</span></div><div class="note">First thing to try when VLOOKUP returns <code class="inline">#N/A</code>.</div></div>
+            <div class="card"><div class="action">Length of a text string</div><div class="keys"><span class="key">=LEN(text)</span></div></div>
           </div>
         </section>
 
-        <!-- Common Recipes -->
         <section class="category" id="cat-recipes">
           <h3>Common Formula Recipes</h3>
-          <p class="intro">The handful of formulas you'll write hundreds of times in any analyst role.</p>
+          <p class="intro">The handful of formulas you'll write hundreds of times.</p>
           <div class="grid">
-            <div class="card">
-              <div class="action">Year-over-year growth rate</div>
-              <div class="keys"><span class="key">=(B/A) - 1</span></div>
-              <div class="note">Format as percentage (<span class="key">Ctrl</span>+<span class="key">Shift</span>+<span class="key">5</span>). Equivalent to <code class="inline">(B-A)/A</code> but shorter.</div>
-            </div>
-            <div class="card">
-              <div class="action">CAGR (compound annual growth rate) <span class="ib-tag">IB</span></div>
-              <div class="keys"><span class="key">=(End/Begin)^(1/Years) - 1</span></div>
-              <div class="note">Where Years is the number of years between Begin and End values.</div>
-            </div>
-            <div class="card">
-              <div class="action">Discount factor for period <em>n</em> <span class="ib-tag">IB</span></div>
-              <div class="keys"><span class="key">=1/(1+rate)^n</span></div>
-              <div class="note">Multiplied by a future cash flow gives present value. Building block of any DCF.</div>
-            </div>
-            <div class="card">
-              <div class="action">Mid-year convention discount factor <span class="ib-tag">IB</span></div>
-              <div class="keys"><span class="key">=1/(1+rate)^(n - 0.5)</span></div>
-              <div class="note">Assumes cash flows arrive evenly through the year rather than at year-end. Standard in DCF valuations.</div>
-            </div>
-            <div class="card">
-              <div class="action">Terminal value (Gordon growth)</div>
-              <div class="keys"><span class="key">=FCF*(1+g) / (r-g)</span></div>
-              <div class="note">Where FCF is final-year free cash flow, g is perpetual growth rate, r is discount rate (WACC). Then discount this back to present.</div>
-            </div>
-            <div class="card">
-              <div class="action">Margin (gross, operating, net)</div>
-              <div class="keys"><span class="key">=Profit / Revenue</span></div>
-              <div class="note">Format as percentage. Used in every comps and trading multiples table.</div>
-            </div>
+            <div class="card"><div class="action">Year-over-year growth rate</div><div class="keys"><span class="key">=(B/A) - 1</span></div></div>
+            <div class="card"><div class="action">CAGR <span class="ib-tag">IB</span></div><div class="keys"><span class="key">=(End/Begin)^(1/Years) - 1</span></div></div>
+            <div class="card"><div class="action">Discount factor for period n <span class="ib-tag">IB</span></div><div class="keys"><span class="key">=1/(1+rate)^n</span></div></div>
+            <div class="card"><div class="action">Mid-year convention discount factor <span class="ib-tag">IB</span></div><div class="keys"><span class="key">=1/(1+rate)^(n - 0.5)</span></div></div>
+            <div class="card"><div class="action">Terminal value (Gordon growth)</div><div class="keys"><span class="key">=FCF*(1+g) / (r-g)</span></div></div>
+            <div class="card"><div class="action">Margin (gross, operating, net)</div><div class="keys"><span class="key">=Profit / Revenue</span></div></div>
           </div>
         </section>
       </div>
 
-      <!-- ============== PART 3: IB TOOLKIT ============== -->
       <div class="part">
         <span class="part-eyebrow">Part 3</span>
         <h2 class="part-title">IB Toolkit</h2>
-        <p class="part-blurb">Conventions, advanced techniques, and IB-specific habits. Knowing these earns instant credibility on day one.</p>
+        <p class="part-blurb">Conventions, advanced techniques, and IB-specific habits.</p>
 
         <section class="category" id="cat-ib-tips">
           <h3>Pro Tips &amp; Conventions</h3>
           <p class="intro">The unwritten rules of IB Excel work.</p>
 
           <div class="ib-box">
-            <h4>The font color convention (memorize this on day one)</h4>
-            <p>Every IB model uses the same color code so anyone opening the file can instantly tell what's an input vs. what's calculated:</p>
+            <h4>The font color convention (memorize on day one)</h4>
             <ul>
-              <li><strong style="color:#1d4ed8">Blue</strong> — hardcoded inputs (assumptions, raw data you typed in)</li>
-              <li><strong style="color:#000000">Black</strong> — formulas computed within the same sheet</li>
-              <li><strong style="color:#059669">Green</strong> — links to <em>other sheets</em> in the same workbook</li>
-              <li><strong style="color:#dc2626">Red</strong> — links to <em>other workbooks</em> (treat as fragile)</li>
+              <li><strong style="color:#1d4ed8">Blue</strong> — hardcoded inputs</li>
+              <li><strong style="color:#000000">Black</strong> — formulas in this same sheet</li>
+              <li><strong style="color:#059669">Green</strong> — links to other sheets</li>
+              <li><strong style="color:#dc2626">Red</strong> — links to other workbooks</li>
             </ul>
-            <p style="margin-top:10px">Blue = fair game to change. Black = stop, you're about to break a formula.</p>
+            <p style="margin-top:10px">Blue = fair game. Black = stop, you're about to break a formula.</p>
           </div>
 
           <div class="ib-box">
             <h4>F4 is your most-used key</h4>
-            <p>While editing a formula, position your cursor on a cell reference and tap <span class="key">F4</span> to cycle through the four lock options:</p>
             <ul>
-              <li><code class="inline">A1</code> — fully relative (shifts when copied)</li>
-              <li><code class="inline">$A$1</code> — fully absolute (locked both directions)</li>
+              <li><code class="inline">A1</code> — fully relative</li>
+              <li><code class="inline">$A$1</code> — fully absolute</li>
               <li><code class="inline">A$1</code> — row locked only</li>
               <li><code class="inline">$A1</code> — column locked only</li>
             </ul>
-            <p style="margin-top:10px">Mixed references (only one $) come up constantly — e.g., locking the year row but not the line item column when copying a sensitivity table.</p>
           </div>
 
           <div class="ib-box">
             <h4>Paste Special is the second most-used</h4>
-            <p>Three combos every banker memorizes:</p>
             <ul>
-              <li><span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">V</span>, <span class="key">V</span>, <span class="key">Enter</span> — <strong>paste values</strong> (kills formulas, keeps numbers)</li>
-              <li><span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">V</span>, <span class="key">T</span>, <span class="key">Enter</span> — <strong>paste formats</strong></li>
-              <li><span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">V</span>, <span class="key">E</span>, <span class="key">Enter</span> — <strong>transpose</strong> (rows ↔ columns)</li>
+              <li><span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">V</span>, <span class="key">V</span>, <span class="key">Enter</span> — paste values</li>
+              <li><span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">V</span>, <span class="key">T</span>, <span class="key">Enter</span> — paste formats</li>
+              <li><span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">V</span>, <span class="key">E</span>, <span class="key">Enter</span> — transpose</li>
             </ul>
           </div>
 
           <div class="ib-box">
             <h4>Auditing a model someone hands you</h4>
             <ul>
-              <li><span class="key">F5</span> → <strong>Special</strong> → <strong>Constants</strong> highlights every hardcoded number — anything blue, anything that shouldn't be a formula but is</li>
-              <li><span class="key">Ctrl</span>+<span class="key">[</span> jumps to a formula's precedents. <span class="key">F5</span>, <span class="key">Enter</span> jumps back</li>
-              <li><span class="key">Ctrl</span>+<span class="key">~</span> (tilde) toggles "show all formulas" view — invaluable for reviewing logic</li>
+              <li><span class="key">F5</span> → <strong>Special</strong> → <strong>Constants</strong> highlights every hardcoded number</li>
+              <li><span class="key">Ctrl</span>+<span class="key">[</span> jumps to a formula's precedents</li>
+              <li><span class="key">Ctrl</span>+<span class="key">~</span> toggles "show all formulas" view</li>
             </ul>
           </div>
 
           <div class="ib-box">
             <h4>The three reflexes you need before day one</h4>
             <ol style="margin: 6px 0 0 20px; padding: 0; font-size: 14px;">
-              <li>Select a column of data: <span class="key">Ctrl</span>+<span class="key">Shift</span>+<span class="key">↓</span></li>
-              <li>Paste values only: <span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">V</span>, <span class="key">V</span>, <span class="key">Enter</span></li>
+              <li>Select column: <span class="key">Ctrl</span>+<span class="key">Shift</span>+<span class="key">↓</span></li>
+              <li>Paste values: <span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">V</span>, <span class="key">V</span>, <span class="key">Enter</span></li>
               <li>Toggle reference lock: <span class="key">F4</span></li>
             </ol>
-            <p style="margin-top:10px">Practice on any spreadsheet — even a personal budget will do.</p>
           </div>
         </section>
 
         <section class="category" id="cat-numfmt">
           <h3>Custom Number Formats</h3>
-          <p class="intro">IB house style requires specific number formats. Press <span class="key">Ctrl</span>+<span class="key">1</span>, choose <strong>Custom</strong>, and paste any of these into the format string box.</p>
+          <p class="intro">Press <span class="key">Ctrl</span>+<span class="key">1</span>, choose <strong>Custom</strong>, paste any of these.</p>
           <table class="ref">
-            <thead>
-              <tr>
-                <th style="width:38%">Format string</th>
-                <th style="width:32%">What it shows</th>
-                <th>When to use</th>
-              </tr>
-            </thead>
+            <thead><tr><th style="width:38%">Format string</th><th style="width:32%">What it shows</th><th>When to use</th></tr></thead>
             <tbody>
-              <tr>
-                <td><code>#,##0_);(#,##0);-</code></td>
-                <td>1,234 &nbsp;|&nbsp; (1,234) &nbsp;|&nbsp; -</td>
-                <td>Standard IB number format. Negatives in parens, dash for zero.</td>
-              </tr>
-              <tr>
-                <td><code>$#,##0.00_);($#,##0.00)</code></td>
-                <td>$1,234.00 &nbsp;|&nbsp; ($1,234.00)</td>
-                <td>Dollar amounts to two decimals, parens for negative.</td>
-              </tr>
-              <tr>
-                <td><code>#,##0,;(#,##0,)</code></td>
-                <td>1,235 &nbsp;<em>(displays in thousands)</em></td>
-                <td>One trailing comma divides display by 1,000. Cell still <em>contains</em> the full number.</td>
-              </tr>
-              <tr>
-                <td><code>#,##0,,;(#,##0,,)</code></td>
-                <td>1 &nbsp;<em>(displays in millions)</em></td>
-                <td>Two trailing commas = millions. Use for revenue, market cap, deal sizes.</td>
-              </tr>
-              <tr>
-                <td><code>0.0%;(0.0%)</code></td>
-                <td>12.5% &nbsp;|&nbsp; (12.5%)</td>
-                <td>Percent with one decimal, parens for negative.</td>
-              </tr>
-              <tr>
-                <td><code>0.0"x"</code></td>
-                <td>1.5x &nbsp;|&nbsp; 12.4x</td>
-                <td>Multiples (EV/EBITDA, P/E). Used in comps tables.</td>
-              </tr>
-              <tr>
-                <td><code>[Red](#,##0)</code></td>
-                <td>(1,234) <em>shown in red</em></td>
-                <td>Add to any negative section to color it. Use sparingly.</td>
-              </tr>
+              <tr><td><code>#,##0_);(#,##0);-</code></td><td>1,234 &nbsp;|&nbsp; (1,234) &nbsp;|&nbsp; -</td><td>Standard IB number format.</td></tr>
+              <tr><td><code>$#,##0.00_);($#,##0.00)</code></td><td>$1,234.00 &nbsp;|&nbsp; ($1,234.00)</td><td>Dollar amounts, two decimals.</td></tr>
+              <tr><td><code>#,##0,;(#,##0,)</code></td><td>1,235 &nbsp;<em>(thousands)</em></td><td>One trailing comma divides display by 1,000.</td></tr>
+              <tr><td><code>#,##0,,;(#,##0,,)</code></td><td>1 &nbsp;<em>(millions)</em></td><td>Two trailing commas = millions.</td></tr>
+              <tr><td><code>0.0%;(0.0%)</code></td><td>12.5% &nbsp;|&nbsp; (12.5%)</td><td>Percent with one decimal.</td></tr>
+              <tr><td><code>0.0"x"</code></td><td>1.5x &nbsp;|&nbsp; 12.4x</td><td>Multiples (EV/EBITDA, P/E).</td></tr>
+              <tr><td><code>[Red](#,##0)</code></td><td>(1,234) <em>in red</em></td><td>Color a negative section.</td></tr>
             </tbody>
           </table>
           <div class="tip-box" style="margin-top:14px">
             <h4>The underscore trick</h4>
-            <p>The <code class="inline">_)</code> at the end of the positive format adds an invisible space the width of a closing paren — so positive and negative numbers line up vertically. Without it, positives shift left of negatives.</p>
+            <p>The <code class="inline">_)</code> at the end of the positive format adds an invisible space the width of a closing paren — so positive and negative numbers line up vertically.</p>
           </div>
         </section>
 
@@ -1161,201 +935,149 @@
 
           <div class="concept-card">
             <h4>Data Table — One Variable</h4>
-            <p>Tests how one input affects one (or several) outputs.</p>
-            <p><strong>Setup:</strong></p>
             <ol style="margin:6px 0 0 20px;padding:0;font-size:14px">
-              <li>Below your output formula, list the input values to test in <em>one column</em> (e.g., discount rates 8%, 9%, 10%, 11%, 12%)</li>
-              <li>One column to the right of the input list, in the row <em>above</em> the first input, type <code class="inline">=output_cell</code></li>
-              <li>Select the whole rectangle: input list + output reference + the empty cells below it</li>
-              <li>Press <span class="key">Alt</span>, <span class="key">A</span>, <span class="key">W</span>, <span class="key">T</span></li>
-              <li>Leave <strong>Row input cell</strong> blank; in <strong>Column input cell</strong>, click the input cell that drives your model</li>
-              <li>OK</li>
+              <li>Below your output, list the input values in one column</li>
+              <li>One column to the right, in the row above the first input, type <code class="inline">=output_cell</code></li>
+              <li>Select the whole rectangle</li>
+              <li><span class="key">Alt</span>, <span class="key">A</span>, <span class="key">W</span>, <span class="key">T</span></li>
+              <li>Leave Row input blank; in Column input, click the cell that drives your model</li>
             </ol>
-            <p>Excel re-runs the model once per row, filling the column with the resulting outputs.</p>
           </div>
 
           <div class="concept-card">
             <h4>Data Table — Two Variables <span class="ib-tag">IB</span></h4>
-            <p>Tests how two inputs interact (e.g., WACC vs. terminal growth → enterprise value).</p>
-            <p><strong>Setup:</strong></p>
             <ol style="margin:6px 0 0 20px;padding:0;font-size:14px">
-              <li>List one set of inputs in a column (e.g., WACC values)</li>
-              <li>List the other set in a row (e.g., growth rates)</li>
-              <li>In the <em>corner cell</em> (top-left of the grid), type <code class="inline">=output_cell</code></li>
-              <li>Select the entire grid including labels</li>
-              <li><span class="key">Alt</span>, <span class="key">A</span>, <span class="key">W</span>, <span class="key">T</span></li>
-              <li><strong>Row input cell</strong> = the cell that holds your top-row variable. <strong>Column input cell</strong> = the cell that holds your left-column variable.</li>
-              <li>OK</li>
+              <li>List one set of inputs in a column, the other in a row</li>
+              <li>In the corner cell type <code class="inline">=output_cell</code></li>
+              <li>Select the entire grid; <span class="key">Alt</span>, <span class="key">A</span>, <span class="key">W</span>, <span class="key">T</span></li>
+              <li>Row input = top-row variable. Column input = left-column variable.</li>
             </ol>
-            <p>You now have a full sensitivity grid. Format the corner cell as <code class="inline">;;;</code> to hide the formula reference.</p>
+            <p>Format the corner cell as <code class="inline">;;;</code> to hide its formula reference.</p>
           </div>
 
           <div class="concept-card">
             <h4>Goal Seek</h4>
-            <p>"What input value would make my output equal X?" Excel finds it by iteration.</p>
-            <p><strong>Steps:</strong></p>
+            <p>"What input makes my output equal X?" Excel solves it.</p>
             <ol style="margin:6px 0 0 20px;padding:0;font-size:14px">
               <li><span class="key">Alt</span>, <span class="key">A</span>, <span class="key">W</span>, <span class="key">G</span></li>
-              <li><strong>Set cell</strong>: the output you want at a target value</li>
-              <li><strong>To value</strong>: the target number</li>
-              <li><strong>By changing cell</strong>: the input cell Excel is allowed to change</li>
-              <li>OK — Excel solves it</li>
+              <li>Set cell: the output. To value: the target. By changing cell: the input.</li>
             </ol>
-            <p>Classic IB use: solve for the offer price that gives a target IRR, or the discount rate implied by a market price.</p>
+            <p>Classic IB use: solve for the offer price that gives a target IRR.</p>
           </div>
         </section>
 
         <section class="category" id="cat-3stmt">
           <h3>Three-Statement Linking</h3>
-          <p class="intro">A quick conceptual reference for how the income statement, cash flow statement, and balance sheet tie together.</p>
+          <p class="intro">How the income statement, cash flow statement, and balance sheet tie together.</p>
           <div class="ib-box">
             <h4>The four critical links</h4>
             <ol style="margin:6px 0 0 20px;padding:0;font-size:14px">
-              <li><strong>Net Income</strong> flows from the bottom of the IS to the top of the CFS (operating section)</li>
-              <li><strong>Depreciation &amp; Amortization</strong> is subtracted on the IS (reduces net income), then <em>added back</em> on the CFS (it's non-cash). Also accumulates on the BS as accumulated D&amp;A.</li>
-              <li><strong>CapEx</strong> shows up in the investing section of the CFS as an outflow, and increases <strong>PP&amp;E</strong> on the BS</li>
-              <li><strong>Ending Cash</strong> from the bottom of the CFS becomes the cash line at the top of the next period's BS. <strong>Net Income</strong> (less dividends) flows into <strong>Retained Earnings</strong> on the BS.</li>
+              <li><strong>Net Income</strong> flows from the bottom of the IS to the top of the CFS</li>
+              <li><strong>D&amp;A</strong> is subtracted on the IS, then added back on the CFS</li>
+              <li><strong>CapEx</strong> in investing on the CFS, increases <strong>PP&amp;E</strong> on the BS</li>
+              <li><strong>Ending Cash</strong> from CFS becomes cash on next BS. <strong>NI</strong> (less dividends) flows into <strong>Retained Earnings</strong>.</li>
             </ol>
           </div>
           <div class="ib-box">
             <h4>The "tie-out" check</h4>
-            <p>Your balance sheet must satisfy: <code class="inline">Total Assets = Total Liabilities + Total Equity</code>. Build a check row at the bottom: <code class="inline">=Assets - (Liabilities + Equity)</code>. It should equal exactly zero. If it doesn't, you have a bug — usually a missing link, a sign error, or D&amp;A only added in one place.</p>
+            <p>BS must satisfy <code class="inline">Total Assets = Total Liabilities + Total Equity</code>. Build a check row: <code class="inline">=Assets - (Liabilities + Equity)</code> — should be zero.</p>
           </div>
         </section>
 
         <section class="category" id="cat-circular">
           <h3>Circular References &amp; Calculation Modes</h3>
-          <p class="intro">Some IB models intentionally rely on circular formulas — knowing how to handle them is essential.</p>
+          <p class="intro">Some IB models intentionally rely on circular formulas.</p>
 
           <div class="ib-box">
             <h4>The classic LBO circularity</h4>
-            <p>In an LBO, <em>interest expense</em> depends on <em>average debt balance</em>, which depends on <em>cash flow</em>, which depends on <em>interest expense</em>. Circular by design. Excel chokes unless you tell it iterative calculation is allowed.</p>
+            <p>Interest expense depends on average debt, which depends on cash flow, which depends on interest expense.</p>
             <p><strong>Enable iterative calculation:</strong></p>
             <ol style="margin:6px 0 0 20px;padding:0;font-size:14px">
               <li><strong>File</strong> → <strong>Options</strong> → <strong>Formulas</strong></li>
               <li>Check <strong>Enable iterative calculation</strong></li>
-              <li>Set <strong>Maximum Iterations</strong> ≈ 100 and <strong>Maximum Change</strong> ≈ 0.001</li>
+              <li>Maximum Iterations ≈ 100, Maximum Change ≈ 0.001</li>
             </ol>
-            <p>Excel will now solve the loop by repeated approximation until the answer stabilizes.</p>
           </div>
 
           <div class="ib-box">
             <h4>Manual vs. Automatic calculation</h4>
-            <p>Big models can take seconds to recalc. Switch to manual mode so Excel only recalculates when you tell it to:</p>
             <ul>
-              <li><strong>Formulas</strong> tab → <strong>Calculation Options</strong> → <strong>Manual</strong> (or <span class="key">Alt</span>, <span class="key">M</span>, <span class="key">X</span>, <span class="key">M</span>)</li>
-              <li><span class="key">F9</span> — recalculate the entire workbook</li>
-              <li><span class="key">Shift</span>+<span class="key">F9</span> — recalculate only the active sheet</li>
-              <li><span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">F9</span> — force a full rebuild (use after a structural change)</li>
+              <li><strong>Formulas</strong> → <strong>Calculation Options</strong> → <strong>Manual</strong></li>
+              <li><span class="key">F9</span> — recalculate workbook</li>
+              <li><span class="key">Shift</span>+<span class="key">F9</span> — only the active sheet</li>
+              <li><span class="key">Ctrl</span>+<span class="key">Alt</span>+<span class="key">F9</span> — full rebuild</li>
             </ul>
           </div>
         </section>
       </div>
 
-      <!-- ============== PART 4: REFERENCE ============== -->
       <div class="part">
         <span class="part-eyebrow">Part 4</span>
         <h2 class="part-title">Reference</h2>
-        <p class="part-blurb">Lookup tables and learning aids you'll come back to.</p>
+        <p class="part-blurb">Lookup tables and learning aids.</p>
 
         <section class="category" id="cat-errors">
           <h3>Common Errors &amp; Fixes</h3>
-          <p class="intro">Excel has seven main error types. Each tells you something specific about what went wrong.</p>
+          <p class="intro">Excel's seven main error types and what each tells you.</p>
           <table class="ref">
-            <thead>
-              <tr>
-                <th style="width:14%">Error</th>
-                <th style="width:43%">What it means</th>
-                <th>Most common fix</th>
-              </tr>
-            </thead>
+            <thead><tr><th style="width:14%">Error</th><th style="width:43%">Means</th><th>Most common fix</th></tr></thead>
             <tbody>
-              <tr>
-                <td><code>#N/A</code></td>
-                <td>A lookup couldn't find a match. Most often from VLOOKUP, INDEX/MATCH, or XLOOKUP.</td>
-                <td>Double-check spelling. Wrap in <code>IFERROR</code>. Use <code>TRIM</code> on both sides — invisible trailing spaces are the #1 cause.</td>
-              </tr>
-              <tr>
-                <td><code>#REF!</code></td>
-                <td>A reference is invalid — usually because a referenced cell, row, or column was deleted.</td>
-                <td>Look at recent deletes. Undo if possible. Otherwise rewrite the formula.</td>
-              </tr>
-              <tr>
-                <td><code>#VALUE!</code></td>
-                <td>Wrong type of argument — text where a number is expected, or vice versa.</td>
-                <td>Check that all referenced cells contain the type the formula expects. Numbers stored as text are a common culprit.</td>
-              </tr>
-              <tr>
-                <td><code>#DIV/0!</code></td>
-                <td>Dividing by zero or by an empty cell.</td>
-                <td>Wrap in <code>IFERROR</code>, or use <code>=IF(denom=0, 0, num/denom)</code> to handle it explicitly.</td>
-              </tr>
-              <tr>
-                <td><code>#NAME?</code></td>
-                <td>Excel doesn't recognize the function name or named range.</td>
-                <td>Check spelling. Confirm the named range exists. Older Excel versions may not have newer functions like <code>XLOOKUP</code>.</td>
-              </tr>
-              <tr>
-                <td><code>#NULL!</code></td>
-                <td>You used a space between two ranges that don't intersect.</td>
-                <td>Use a comma between ranges instead of a space. (Space is the rare "intersection" operator.)</td>
-              </tr>
-              <tr>
-                <td><code>#####</code></td>
-                <td>The column is too narrow to display the value (or a date is negative).</td>
-                <td>Widen the column — double-click the right edge of the column header to auto-fit.</td>
-              </tr>
+              <tr><td><code>#N/A</code></td><td>Lookup couldn't find a match.</td><td>Check spelling. Wrap in <code>IFERROR</code>. Try <code>TRIM</code> — trailing spaces are #1 cause.</td></tr>
+              <tr><td><code>#REF!</code></td><td>Reference is invalid (deleted cell or column).</td><td>Look at recent deletes. Undo if possible.</td></tr>
+              <tr><td><code>#VALUE!</code></td><td>Wrong type of argument.</td><td>Check that referenced cells contain the type expected.</td></tr>
+              <tr><td><code>#DIV/0!</code></td><td>Dividing by zero or empty cell.</td><td>Wrap in <code>IFERROR</code>, or check denominator first.</td></tr>
+              <tr><td><code>#NAME?</code></td><td>Function or named range not recognized.</td><td>Check spelling. Confirm named range exists.</td></tr>
+              <tr><td><code>#NULL!</code></td><td>Space between two non-intersecting ranges.</td><td>Use a comma instead.</td></tr>
+              <tr><td><code>#####</code></td><td>Column too narrow.</td><td>Widen the column — double-click right edge of header.</td></tr>
             </tbody>
           </table>
         </section>
 
         <section class="category" id="cat-memory">
           <h3>Memory Tips</h3>
-          <p class="intro">How to actually remember all of this — especially the long Alt+letter+letter ribbon sequences.</p>
+          <p class="intro">How to actually remember all of this.</p>
 
           <div class="tip-box">
             <h4>The big secret: you don't have to memorize them at all</h4>
-            <p>Press <span class="key">Alt</span> on its own and Excel <em>displays every keyboard shortcut directly on the ribbon</em>. Tiny letters appear over each tab and button. Press the letter for the tab you want, and a new set of letters appears for that tab's buttons. You can read off the keyboard path one step at a time.</p>
+            <p>Press <span class="key">Alt</span> on its own and Excel <em>displays every keyboard shortcut directly on the ribbon</em>. Tiny letters appear over each tab and button.</p>
             <p><strong>So <code class="inline">Alt+H, F, I, S</code> means:</strong></p>
             <ul>
-              <li>Press <span class="key">Alt</span> → ribbon lights up with letter hints</li>
-              <li>Press <span class="key">H</span> → opens Home tab, new letters appear</li>
-              <li>Press <span class="key">F</span> → opens Fill menu</li>
+              <li>Press <span class="key">Alt</span> → ribbon lights up with hints</li>
+              <li>Press <span class="key">H</span> → Home tab opens, new letters appear</li>
+              <li>Press <span class="key">F</span> → Fill menu opens</li>
               <li>Press <span class="key">I</span>, then <span class="key">S</span> → confirms Series</li>
             </ul>
-            <p>After a few uses, your fingers learn the sequence on their own.</p>
           </div>
 
           <div class="tip-box">
             <h4>Mnemonic for the ribbon tabs</h4>
-            <p>The first letter after Alt picks the tab. Mostly logical:</p>
             <ul>
               <li><strong>Alt + F</strong> → <strong>F</strong>ile</li>
-              <li><strong>Alt + H</strong> → <strong>H</strong>ome (most formatting)</li>
-              <li><strong>Alt + N</strong> → i<strong>N</strong>sert (charts, tables, pivots)</li>
+              <li><strong>Alt + H</strong> → <strong>H</strong>ome</li>
+              <li><strong>Alt + N</strong> → i<strong>N</strong>sert</li>
               <li><strong>Alt + P</strong> → <strong>P</strong>age Layout</li>
               <li><strong>Alt + M</strong> → for<strong>M</strong>ulas</li>
-              <li><strong>Alt + A</strong> → d<strong>A</strong>ta (sort, filter, data tables)</li>
+              <li><strong>Alt + A</strong> → d<strong>A</strong>ta</li>
               <li><strong>Alt + R</strong> → <strong>R</strong>eview</li>
-              <li><strong>Alt + W</strong> → vie<strong>W</strong> (freeze panes, zoom)</li>
+              <li><strong>Alt + W</strong> → vie<strong>W</strong></li>
             </ul>
           </div>
 
           <div class="tip-box">
-            <h4>Patterns that make Ctrl+ shortcuts easier to remember</h4>
+            <h4>Patterns that make Ctrl+ shortcuts easier</h4>
             <ul>
               <li><strong>Ctrl + Shift + [number]</strong> = number formats (1=number, 4=currency, 5=percent, 7=border)</li>
-              <li><strong>Ctrl + [letter]</strong> follows Word equivalents (B/I/U for bold/italic/underline, F for find, S for save, P for print)</li>
-              <li><strong>Ctrl + 9 / Ctrl + 0</strong> = hide rows / hide columns (9 looks tall, 0 looks wide)</li>
-              <li><strong>F-keys:</strong> F2 edits, F4 locks, F5 goes to, F7 spell-checks, F9 recalculates</li>
-              <li><strong>+ inserts, − deletes:</strong> Ctrl+Shift++ inserts, Ctrl+− deletes — they're literally the math symbols</li>
+              <li><strong>Ctrl + [letter]</strong> follows Word equivalents (B/I/U, F find, S save, P print)</li>
+              <li><strong>Ctrl + 9 / Ctrl + 0</strong> = hide rows / columns (9 tall, 0 wide)</li>
+              <li><strong>F-keys:</strong> F2 edits, F4 locks, F5 goes to, F9 recalculates</li>
+              <li><strong>+ inserts, − deletes</strong></li>
             </ul>
           </div>
 
           <div class="tip-box">
             <h4>The two rules of getting fast</h4>
-            <p><strong>1. Force the shortcut even when it's slower at first.</strong> Week one feels like sand in the gears. By week three, your fingers do it automatically and you save real time.</p>
-            <p><strong>2. Sit on your mouse hand.</strong> Literally. A trick IB analysts use to force themselves into keyboard-only workflows for a day. You learn fast.</p>
+            <p><strong>1. Force the shortcut even when slower at first.</strong> By week three your fingers do it automatically.</p>
+            <p><strong>2. Sit on your mouse hand.</strong> A trick analysts use to force keyboard-only workflows.</p>
           </div>
         </section>
       </div>
@@ -1367,5 +1089,155 @@
     </main>
   </div>
 </div>
+
+<script>
+  const searchIndex = [
+    { t: "Jump to edge of data", s: "Navigation", d: "Ctrl + Arrow keys", p: "index.html", a: "cat-navigation" },
+    { t: "Select to edge of data", s: "Navigation", d: "Ctrl + Shift + Arrow keys", p: "index.html", a: "cat-navigation" },
+    { t: "Go to A1", s: "Navigation", d: "Ctrl + Home", p: "index.html", a: "cat-navigation" },
+    { t: "Go To dialog", s: "Navigation", d: "F5 or Ctrl + G — find blanks, formulas, constants", p: "index.html", a: "cat-navigation" },
+    { t: "Switch worksheet tabs", s: "Navigation", d: "Ctrl + PgUp / PgDn", p: "index.html", a: "cat-navigation" },
+    { t: "Edit cell (F2)", s: "Editing", d: "Drops cursor inside the formula", p: "index.html", a: "cat-editing" },
+    { t: "Absolute / relative reference (F4)", s: "Editing", d: "Toggle dollar-sign reference locks", p: "index.html", a: "cat-editing" },
+    { t: "AutoSum", s: "Editing", d: "Alt + =", p: "index.html", a: "cat-editing" },
+    { t: "Paste Special", s: "Editing", d: "Ctrl + Alt + V — values, formats, transpose", p: "index.html", a: "cat-editing" },
+    { t: "Undo / Redo", s: "Editing", d: "Ctrl + Z / Ctrl + Y", p: "index.html", a: "cat-editing" },
+    { t: "Format Cells dialog", s: "Formatting", d: "Ctrl + 1 — the master menu", p: "index.html", a: "cat-formatting" },
+    { t: "Bold / Italic / Underline", s: "Formatting", d: "Ctrl + B / I / U", p: "index.html", a: "cat-formatting" },
+    { t: "Number format with separator", s: "Formatting", d: "Ctrl + Shift + 1", p: "index.html", a: "cat-formatting" },
+    { t: "Currency format", s: "Formatting", d: "Ctrl + Shift + 4", p: "index.html", a: "cat-formatting" },
+    { t: "Percentage format", s: "Formatting", d: "Ctrl + Shift + 5", p: "index.html", a: "cat-formatting" },
+    { t: "Borders menu", s: "Formatting", d: "Alt + H, B", p: "index.html", a: "cat-formatting" },
+    { t: "Freeze panes", s: "View & Audit", d: "Alt + W, F, F", p: "index.html", a: "cat-view" },
+    { t: "Hide / Unhide rows", s: "View & Audit", d: "Ctrl + 9 / Ctrl + Shift + 9", p: "index.html", a: "cat-view" },
+    { t: "Hide columns", s: "View & Audit", d: "Ctrl + 0", p: "index.html", a: "cat-view" },
+    { t: "Trace precedents / dependents", s: "View & Audit", d: "Ctrl + [ (precedents), Ctrl + ] (dependents)", p: "index.html", a: "cat-view" },
+    { t: "Autofill date series", s: "Fill & Autofill", d: "Alt + H, F, I, S — opens Series dialog", p: "index.html", a: "cat-fill" },
+    { t: "Fill Down", s: "Fill & Autofill", d: "Ctrl + D — copies above into selection", p: "index.html", a: "cat-fill" },
+    { t: "Insert today's date", s: "Fill & Autofill", d: "Ctrl + ; (static)", p: "index.html", a: "cat-fill" },
+    { t: "Insert row or column", s: "Rows & Columns", d: "Ctrl + Shift + +", p: "index.html", a: "cat-rows-cols" },
+    { t: "Select entire row", s: "Rows & Columns", d: "Shift + Space", p: "index.html", a: "cat-rows-cols" },
+    { t: "Delete row or column", s: "Rows & Columns", d: "Ctrl + minus", p: "index.html", a: "cat-rows-cols" },
+    { t: "VLOOKUP", s: "Lookup", d: "Find a value in the leftmost column of a table", p: "index.html", a: "cat-lookups" },
+    { t: "INDEX / MATCH", s: "Lookup", d: "Flexible two-function lookup combo", p: "index.html", a: "cat-lookups" },
+    { t: "XLOOKUP", s: "Lookup", d: "Modern combined lookup function", p: "index.html", a: "cat-lookups" },
+    { t: "IF", s: "Logical", d: "Branch on a condition", p: "index.html", a: "cat-logical" },
+    { t: "IFERROR", s: "Logical", d: "Wrap formulas to handle errors gracefully", p: "index.html", a: "cat-logical" },
+    { t: "SUMIFS", s: "Logical", d: "Sum based on multiple criteria", p: "index.html", a: "cat-logical" },
+    { t: "COUNTIFS", s: "Logical", d: "Count rows meeting multiple criteria", p: "index.html", a: "cat-logical" },
+    { t: "AVERAGEIFS", s: "Logical", d: "Average based on multiple criteria", p: "index.html", a: "cat-logical" },
+    { t: "NPV / XNPV", s: "Financial", d: "Net present value of cash flows", p: "index.html", a: "cat-financial" },
+    { t: "IRR / XIRR", s: "Financial", d: "Internal rate of return", p: "index.html", a: "cat-financial" },
+    { t: "PMT", s: "Financial", d: "Periodic loan payment", p: "index.html", a: "cat-financial" },
+    { t: "EOMONTH", s: "Date", d: "End of month, optionally offset by N months", p: "index.html", a: "cat-date" },
+    { t: "EDATE", s: "Date", d: "Same date N months later", p: "index.html", a: "cat-date" },
+    { t: "YEARFRAC", s: "Date", d: "Fraction of a year between two dates", p: "index.html", a: "cat-date" },
+    { t: "DATE", s: "Date", d: "Build a date from year/month/day", p: "index.html", a: "cat-date" },
+    { t: "TODAY", s: "Date", d: "Today's date (auto-updating)", p: "index.html", a: "cat-date" },
+    { t: "TEXT", s: "Text", d: "Format a number as a text string", p: "index.html", a: "cat-text" },
+    { t: "TRIM", s: "Text", d: "Remove extra spaces from text", p: "index.html", a: "cat-text" },
+    { t: "LEFT / RIGHT / MID", s: "Text", d: "Extract characters from a string", p: "index.html", a: "cat-text" },
+    { t: "Concatenate text (&)", s: "Text", d: "Combine text with the & operator", p: "index.html", a: "cat-text" },
+    { t: "LEN", s: "Text", d: "Length of a text string", p: "index.html", a: "cat-text" },
+    { t: "Year-over-year growth", s: "Recipes", d: "=(B/A) - 1", p: "index.html", a: "cat-recipes" },
+    { t: "CAGR", s: "Recipes", d: "=(End/Begin)^(1/Years) - 1", p: "index.html", a: "cat-recipes" },
+    { t: "Discount factor", s: "Recipes", d: "1/(1+rate)^n", p: "index.html", a: "cat-recipes" },
+    { t: "Mid-year convention", s: "Recipes", d: "1/(1+rate)^(n - 0.5) — DCF discount factor", p: "index.html", a: "cat-recipes" },
+    { t: "Terminal value (Gordon growth)", s: "Recipes", d: "FCF*(1+g) / (r-g)", p: "index.html", a: "cat-recipes" },
+    { t: "Margin", s: "Recipes", d: "Profit / Revenue", p: "index.html", a: "cat-recipes" },
+    { t: "Color conventions", s: "IB Pro Tips", d: "Blue/black/green/red font convention", p: "index.html", a: "cat-ib-tips" },
+    { t: "F4 mastery", s: "IB Pro Tips", d: "Reference locking — most-used IB key", p: "index.html", a: "cat-ib-tips" },
+    { t: "Paste Special workflows", s: "IB Pro Tips", d: "Values, formats, transpose combos", p: "index.html", a: "cat-ib-tips" },
+    { t: "Auditing a model", s: "IB Pro Tips", d: "F5 Special, Ctrl+[, Ctrl+~", p: "index.html", a: "cat-ib-tips" },
+    { t: "Custom number formats", s: "IB Toolkit", d: "Parens negatives, thousands, millions, multiples", p: "index.html", a: "cat-numfmt" },
+    { t: "Data Tables (sensitivity)", s: "IB Toolkit", d: "One- and two-variable sensitivity analysis", p: "index.html", a: "cat-sensitivity" },
+    { t: "Goal Seek", s: "IB Toolkit", d: "Find the input that produces a target output", p: "index.html", a: "cat-sensitivity" },
+    { t: "Three-statement linking", s: "IB Toolkit", d: "How IS, CFS, and BS connect", p: "index.html", a: "cat-3stmt" },
+    { t: "Balance sheet tie-out check", s: "IB Toolkit", d: "Assets = Liabilities + Equity", p: "index.html", a: "cat-3stmt" },
+    { t: "Circular references (LBO)", s: "IB Toolkit", d: "Iterative calculation, manual recalc", p: "index.html", a: "cat-circular" },
+    { t: "Manual calculation mode", s: "IB Toolkit", d: "F9 to recalc; Shift+F9 for active sheet", p: "index.html", a: "cat-circular" },
+    { t: "#N/A error", s: "Errors", d: "Lookup didn't find a match", p: "index.html", a: "cat-errors" },
+    { t: "#REF! error", s: "Errors", d: "Reference is invalid (cell deleted)", p: "index.html", a: "cat-errors" },
+    { t: "#VALUE! error", s: "Errors", d: "Wrong type of argument", p: "index.html", a: "cat-errors" },
+    { t: "#DIV/0! error", s: "Errors", d: "Dividing by zero or empty cell", p: "index.html", a: "cat-errors" },
+    { t: "#NAME? error", s: "Errors", d: "Function name not recognized", p: "index.html", a: "cat-errors" },
+    { t: "##### display", s: "Errors", d: "Column too narrow", p: "index.html", a: "cat-errors" },
+    { t: "Memorizing ribbon shortcuts", s: "Memory Tips", d: "Press Alt to see them on the ribbon", p: "index.html", a: "cat-memory" },
+    { t: "Ribbon tab letters mnemonic", s: "Memory Tips", d: "F/H/N/P/M/A/R/W cheat sheet", p: "index.html", a: "cat-memory" }
+  ];
+
+  const searchInput = document.getElementById('searchInput');
+  const searchResultsEl = document.getElementById('searchResults');
+  let focusedResultIdx = -1;
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function renderResults(results, query) {
+    if (results.length === 0) {
+      searchResultsEl.innerHTML = '<div class="search-empty">No matches for "' + escapeHtml(query) + '"</div>';
+      searchResultsEl.classList.add('open');
+      return;
+    }
+    searchResultsEl.innerHTML = results.slice(0, 12).map((r, i) => {
+      const url = r.p + '#' + r.a;
+      return '<a href="' + url + '" class="search-result" data-idx="' + i + '">' +
+             '<span class="result-section">' + escapeHtml(r.s) + '</span>' +
+             '<div class="result-title">' + escapeHtml(r.t) + '</div>' +
+             '<div class="result-desc">' + escapeHtml(r.d) + '</div>' +
+             '</a>';
+    }).join('');
+    searchResultsEl.classList.add('open');
+    focusedResultIdx = -1;
+  }
+  function search(query) {
+    const q = query.toLowerCase().trim();
+    if (!q) { searchResultsEl.classList.remove('open'); return; }
+    const results = searchIndex.filter(item =>
+      item.t.toLowerCase().includes(q) ||
+      item.d.toLowerCase().includes(q) ||
+      item.s.toLowerCase().includes(q)
+    );
+    results.sort((a, b) => {
+      const aT = a.t.toLowerCase().includes(q) ? 0 : 1;
+      const bT = b.t.toLowerCase().includes(q) ? 0 : 1;
+      return aT - bT;
+    });
+    renderResults(results, query);
+  }
+  searchInput.addEventListener('input', (e) => search(e.target.value));
+  searchInput.addEventListener('focus', (e) => { if (e.target.value) search(e.target.value); });
+  searchInput.addEventListener('keydown', (e) => {
+    const items = searchResultsEl.querySelectorAll('.search-result');
+    if (e.key === 'Escape') { searchResultsEl.classList.remove('open'); searchInput.blur(); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); focusedResultIdx = Math.min(focusedResultIdx + 1, items.length - 1); updateFocus(items); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); focusedResultIdx = Math.max(focusedResultIdx - 1, 0); updateFocus(items); }
+    else if (e.key === 'Enter' && focusedResultIdx >= 0 && items[focusedResultIdx]) { items[focusedResultIdx].click(); }
+  });
+  function updateFocus(items) {
+    items.forEach((it, i) => it.classList.toggle('focused', i === focusedResultIdx));
+    if (items[focusedResultIdx]) items[focusedResultIdx].scrollIntoView({ block: 'nearest' });
+  }
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-search')) searchResultsEl.classList.remove('open');
+  });
+
+  const sections = document.querySelectorAll('section.category');
+  const tocLinks = document.querySelectorAll('aside.sidebar a');
+  if (sections.length && tocLinks.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-15% 0% -75% 0%', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  }
+</script>
+
 </body>
 </html>
